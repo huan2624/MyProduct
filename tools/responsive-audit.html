@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>响应式自检</title>
+<style>
+  body { margin: 0; background: #111; color: #d7d7dc; font: 13px/1.6 system-ui, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  h1 { font-size: 14px; margin: 0; padding: 12px 16px; background: #1b1b1f; letter-spacing: .04em; }
+  #report { padding: 12px 16px 20px; }
+  table { border-collapse: collapse; width: 100%; max-width: 900px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #2a2a30; }
+  th { color: #8ab4f8; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+  .ok { color: #6dd58c; }
+  .bad { color: #ff8080; }
+  code { color: #ffcc80; }
+  #frames { display: flex; gap: 8px; padding: 0 16px 20px; overflow-x: auto; }
+  .item { position: relative; flex: none; }
+  .tag { position: absolute; top: 0; left: 0; z-index: 2; background: #111; color: #8ab4f8; font-size: 10px; padding: 1px 5px; border-radius: 0 0 4px 0; }
+  iframe { border: 0; display: block; background: #fff; }
+</style>
+</head>
+<body>
+<h1>响应式自检 · 横向溢出 / 栅格列数 / 触控目标</h1>
+<div id="report">检测中……</div>
+<div id="frames"></div>
+
+<script>
+const WIDTHS = [320, 360, 375, 414, 480, 600, 768, 1024, 1440, 1920];
+const framesEl = document.getElementById('frames');
+const frames = [];
+
+WIDTHS.forEach((w) => {
+  const box = document.createElement('div');
+  box.className = 'item';
+  box.style.width = w + 'px';
+  box.innerHTML = '<span class="tag">' + w + 'px</span>';
+  const f = document.createElement('iframe');
+  f.width = w;
+  f.height = 700;
+  f.src = '../index.html?audit=' + w;
+  f.dataset.w = String(w);
+  box.appendChild(f);
+  framesEl.appendChild(box);
+  frames.push(f);
+});
+
+function measure() {
+  return frames.map((f) => {
+    const o = { w: Number(f.dataset.w) };
+    try {
+      const d = f.contentDocument;
+      const de = d.documentElement;
+      const vw = de.clientWidth;
+      o.viewport = vw;
+      o.overflow = de.scrollWidth - vw;
+
+      if (o.overflow > 0) {
+        o.culprits = [...d.querySelectorAll('body *')].filter((el) => {
+          const r = el.getBoundingClientRect();
+          if (!r.width && !r.height) return false;
+          if (getComputedStyle(el).position === 'fixed') return false;
+          return r.right > vw + 1 || r.left < -1;
+        }).slice(0, 6).map((el) => {
+          const r = el.getBoundingClientRect();
+          const cls = typeof el.className === 'string' ? el.className.trim().split(/\s+/).join('.') : '';
+          return '<' + el.tagName.toLowerCase() + (cls ? '.' + cls : '') + '> ' + Math.round(r.left) + '~' + Math.round(r.right);
+        });
+      }
+
+      const grid = d.getElementById('grid');
+      o.cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+
+      const small = [];
+      // 触控目标最小 44px，只在以触摸为主的窄屏上检查（宽屏用鼠标，另有 WCAG 24px 标准）
+      if (o.viewport <= 820) {
+        d.querySelectorAll('.chip, .card__btn, .btn, .nav a, .contact__links a, .lb-btn, #lbClose, #lbPrev, #lbNext').forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (!r.height || r.height >= 44) return;
+          const cls = typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : '';
+          small.push('.' + cls + ' ' + Math.round(r.height) + 'px');
+        });
+      }
+      o.small = [...new Set(small)];
+
+      const img = d.querySelector('.card__media img');
+      o.cardRatio = img ? (img.getBoundingClientRect().width / img.getBoundingClientRect().height).toFixed(2) : '—';
+    } catch (e) { o.error = String(e); }
+    return o;
+  });
+}
+
+function render(rows) {
+  const bad = rows.some((r) => r.overflow > 0 || (r.small && r.small.length));
+  document.getElementById('report').innerHTML =
+    '<p>' + (bad ? '<span class="bad">发现需要处理的问题 ▲</span>' : '<span class="ok">全部通过 ✓</span>') +
+    ' &nbsp;断点：≤414 单列 / 480~768 双列 / ≥1024 三列</p>' +
+    '<table><thead><tr><th>视口</th><th>横向溢出</th><th>栅格列数</th><th>卡片比例</th><th>&lt; 44px 的触控目标</th></tr></thead><tbody>' +
+    rows.map((r) => '<tr>' +
+      '<td>' + r.w + 'px</td>' +
+      '<td class="' + (r.overflow > 0 ? 'bad' : 'ok') + '">' + (r.overflow > 0 ? '溢出 ' + r.overflow + 'px ' + (r.culprits || []).map((c) => '<code>' + c + '</code>').join(' ') : '0 ✓') + '</td>' +
+      '<td>' + (r.cols || '?') + '</td>' +
+      '<td>' + (r.cardRatio || '?') + '</td>' +
+      '<td class="' + (r.small && r.small.length ? 'bad' : 'ok') + '">' + (!r.small || !r.small.length ? '没有 ✓' : r.small.join('、')) + '</td>' +
+    '</tr>').join('') +
+    '</tbody></table>';
+}
+
+let done = 0;
+frames.forEach((f) => {
+  const onLoad = () => { done++; if (done === frames.length) setTimeout(() => { window.__audit = measure(); render(window.__audit); }, 400); };
+  f.addEventListener('load', onLoad);
+});
+</script>
+</body>
+</html>

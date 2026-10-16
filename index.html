@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>你的名字 · 平面设计作品集</title>
+
+<!-- ✏️ SEO：改标题和描述，把「你的名字」换成真名，描述里带上你擅长的方向 -->
+<meta name="description" content="平面设计师作品集：品牌识别、海报、插画与包装设计。" />
+<meta name="theme-color" content="#fbfbfa" />
+
+<!-- 分享到微信/微博时的卡片信息（可选） -->
+<meta property="og:title" content="你的名字 · 平面设计作品集" />
+<meta property="og:description" content="品牌识别 / 海报 / 插画 / 包装" />
+<meta property="og:type" content="website" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23141414'/%3E%3Ccircle cx='50' cy='50' r='22' fill='%23fff'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#works">跳到作品</a>
+
+<!-- ================= 顶部导航 ================= -->
+<header class="site-header" id="header">
+  <div class="wrap header__inner">
+    <!-- ✏️ 改成你的名字 / 工作室名 -->
+    <a class="brand" href="#top">你的名字<span class="brand__dot">.</span></a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#works">作品</a>
+      <a href="#about">关于</a>
+      <a href="#contact">联系</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= 首屏 ================= -->
+  <section class="hero wrap">
+    <p class="hero__eyebrow">平面设计 · 品牌视觉</p>
+    <h1 class="hero__title">用清晰的视觉，<br />讲清一个品牌。</h1>
+    <!-- ✏️ 自我介绍，两三句就够 -->
+    <p class="hero__lede">
+      我是 <strong>你的名字</strong>，一名平面设计师，专注品牌识别、海报与包装。
+      这里收录了近几年完成的项目，共 <span id="workCount">—</span> 组。
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--solid" href="#works">查看作品</a>
+      <a class="btn" href="#contact">合作联系</a>
+    </div>
+  </section>
+
+  <!-- ================= 作品区 ================= -->
+  <section class="works wrap" id="works">
+    <div class="section-head">
+      <h2>作品</h2>
+      <p class="section-head__hint">按分类筛选 · 点击任意作品查看大图（支持 ← → 键翻页）</p>
+    </div>
+
+    <!-- 分类按钮由 js/main.js 根据 data/works.js 自动生成 -->
+    <div class="filter" id="filter" role="group" aria-label="作品分类筛选"></div>
+
+    <div class="grid" id="grid"></div>
+
+    <p class="empty" id="empty" hidden>这个分类下还没有作品。</p>
+  </section>
+
+  <!-- ================= 关于 ================= -->
+  <section class="about wrap" id="about">
+    <div class="section-head">
+      <h2>关于</h2>
+    </div>
+    <div class="about__grid">
+      <div class="about__text">
+        <!-- ✏️ 换成你自己的经历 -->
+        <p>
+          我做平面设计 <strong>X 年</strong>，服务过咖啡、茶饮、文化空间与消费品品牌。
+          习惯从最基础的字形与网格开始，先把结构理顺，再谈风格。
+        </p>
+        <p>
+          能独立完成从概念、设计到输出落地文件的全流程，也能配合插画师、摄影师与印刷厂协作。
+          如果你有正在成型的产品或品牌，欢迎聊聊。
+        </p>
+      </div>
+      <div class="about__side">
+        <h3 class="about__label">能力</h3>
+        <ul class="tags">
+          <li>品牌识别 / VI 系统</li>
+          <li>标志与字体设计</li>
+          <li>海报与主视觉</li>
+          <li>包装结构与印刷</li>
+          <li>插画与图形语言</li>
+          <li>展览与空间导视</li>
+        </ul>
+        <h3 class="about__label">工具</h3>
+        <ul class="tags">
+          <li>Illustrator</li>
+          <li>Photoshop</li>
+          <li>InDesign</li>
+          <li>Figma</li>
+          <li>Procreate</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 联系 ================= -->
+  <section class="contact wrap" id="contact">
+    <div class="section-head">
+      <h2>联系</h2>
+    </div>
+    <p class="contact__lede">项目合作、作品授权或只是想认识一下，都可以直接找我。</p>
+    <!-- ✏️ 换成你的邮箱和链接 -->
+    <a class="contact__mail" href="mailto:hello@example.com">hello@example.com</a>
+    <ul class="contact__links">
+      <li><a href="#" rel="noopener">站酷</a></li>
+      <li><a href="#" rel="noopener">小红书</a></li>
+      <li><a href="#" rel="noopener">Behance</a></li>
+      <li><a href="#" rel="noopener">Instagram</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- ================= 页脚 ================= -->
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>© <span id="year">2026</span> 你的名字 · 保留所有权利</p>
+    <p class="site-footer__note">本站图片版权归作者所有，未经许可请勿商用</p>
+  </div>
+</footer>
+
+<!-- ================= 大图查看（灯箱） ================= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="作品大图查看" aria-hidden="true">
+  <div class="lightbox__backdrop" data-close></div>
+
+  <div class="lightbox__stage" id="lbStage">
+    <div class="lightbox__figure">
+      <img id="lbImage" src="" alt="" />
+    </div>
+    <div class="lightbox__bar">
+      <div class="lightbox__info">
+        <h3 id="lbTitle"></h3>
+        <p id="lbMeta" class="lightbox__meta"></p>
+        <p id="lbDesc" class="lightbox__desc"></p>
+        <ul class="lightbox__tags" id="lbTags"></ul>
+      </div>
+      <p class="lightbox__counter" id="lbCounter"></p>
+    </div>
+  </div>
+
+  <button class="lb-btn lb-btn--close" id="lbClose" type="button" aria-label="关闭（Esc）">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button class="lb-btn lb-btn--prev" id="lbPrev" type="button" aria-label="上一张（← 方向键）">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button class="lb-btn lb-btn--next" id="lbNext" type="button" aria-label="下一张（→ 方向键）">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+<!-- 作品数据（用 js 文件而不是 json，这样直接双击 index.html 也能打开） -->
+<script src="data/works.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>真机尺寸模拟</title>
+<style>
+  html, body { margin: 0; background: #1a1a1c; }
+  body {
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px;
+    gap: 10px;
+  }
+  .bar {
+    color: #9aa0a6;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  #frame {
+    border: 0;
+    display: block;
+    background: #fbfbfa;
+    box-shadow: 0 0 0 1px #3a3a40, 0 30px 70px -20px rgba(0, 0, 0, .8);
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+  <p class="bar" id="bar">—</p>
+  <iframe id="frame" src="../index.html" scrolling="yes"></iframe>
+
+<script>
+  const p = new URLSearchParams(location.search);
+  const w = clamp(parseInt(p.get('w') || '390', 10), 280, 1600);
+  const h = clamp(parseInt(p.get('h') || '844', 10), 400, 2000);
+  const frame = document.getElementById('frame');
+
+  frame.style.width = w + 'px';
+  frame.style.height = h + 'px';
+  document.getElementById('bar').textContent =
+    w + ' × ' + h + ' （视口宽度 ' + w + 'px）';
+
+  function clamp(n, min, max) { return Math.min(Math.max(n, min), max); }
+</script>
+</body>
+</html>

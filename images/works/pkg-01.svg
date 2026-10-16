@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200" role="img" aria-label="白露 · 米酒包装（示例占位图）">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E8D9B5"/>
+      <stop offset="1" stop-color="#8A6A3B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#g)"/>
+  <rect x="880.0000000000001" y="192" width="192" height="192" rx="23.04" fill="rgba(255,255,255,0.05)" transform="rotate(18 976.0000000000001 288)"/>
+  <rect x="1100.8000000000002" y="192" width="192" height="192" rx="23.04" fill="rgba(255,255,255,0.08)" transform="rotate(18 1196.8000000000002 288)"/>
+  <rect x="1321.6000000000001" y="192" width="192" height="192" rx="23.04" fill="rgba(255,255,255,0.11)" transform="rotate(18 1417.6000000000001 288)"/>
+  <rect x="1542.4" y="192" width="192" height="192" rx="23.04" fill="rgba(255,255,255,0.14)" transform="rotate(18 1638.4 288)"/>
+  <rect x="1763.2" y="192" width="192" height="192" rx="23.04" fill="rgba(255,255,255,0.16999999999999998)" transform="rotate(18 1859.2 288)"/>
+  <g font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif" fill="#ffffff">
+    <text x="90" y="121" font-size="31" fill-opacity="0.72" letter-spacing="3.7199999999999998">PLACEHOLDER · 请替换为你的作品</text>
+    <text x="90" y="1110" font-size="74" font-weight="600" fill-opacity="0.95">白露 · 米酒包装</text>
+  </g>
+</svg>
